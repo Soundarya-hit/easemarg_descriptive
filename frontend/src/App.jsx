@@ -5,6 +5,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import SketchModal from './sketch.jsx';
 
+// Vercel-la run aagum pothu Render backend URL-um, local-la run aagum pothu localhost-um eduthukum
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 export default function App() {
 
   // ==========================================
@@ -75,7 +78,7 @@ export default function App() {
     try {
       setLoading(true);
       // Future Integration Note: You can pass class, module_id, topic_id as query params here when merging (e.g. ?class=10&module_id=m2&topic_id=c1)
-      const res = await axios.get('http://localhost:5000/api/questions');
+      const res = await axios.get(`${API_BASE_URL}/api/questions`);
       if (res.data.success && res.data.questions.length > 0) {
         setQuestions(res.data.questions);
       }
@@ -534,7 +537,7 @@ export default function App() {
     }, 1300);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/evaluate', {
+      const res = await axios.post(`${API_BASE_URL}/api/evaluate`, {
         questionId: currentQ._id,
         studentAnswer,
         canvasItems,
