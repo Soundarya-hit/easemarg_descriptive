@@ -15,7 +15,8 @@ export default function SketchModal({ isOpen, onClose, questionId, questionText,
     const fetchSketchFromBackend = async () => {
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:5000/api/get-question-sketch', {
+        const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://easemarg-descriptive.onrender.com';
+        const response = await fetch(`${API_BASE_URL}/api/get-question-sketch`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ questionId, questionText })
